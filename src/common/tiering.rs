@@ -413,7 +413,7 @@ impl TieringManager {
         let mut changes = Vec::new();
 
         let mut policies = self.config.policies.clone();
-        policies.sort_by(|a, b| b.priority.cmp(&a.priority));
+        policies.sort_by_key(|b| std::cmp::Reverse(b.priority));
 
         for (key, metadata) in items.iter() {
             for policy in &policies {
@@ -584,7 +584,7 @@ impl TieringManager {
     pub fn hottest_items(&self, limit: usize) -> Vec<ItemMetadata> {
         let items = self.metadata.read().unwrap();
         let mut sorted: Vec<_> = items.values().cloned().collect();
-        sorted.sort_by(|a, b| b.access_count.cmp(&a.access_count));
+        sorted.sort_by_key(|b| std::cmp::Reverse(b.access_count));
         sorted.truncate(limit);
         sorted
     }
@@ -592,7 +592,7 @@ impl TieringManager {
     pub fn coldest_items(&self, limit: usize) -> Vec<ItemMetadata> {
         let items = self.metadata.read().unwrap();
         let mut sorted: Vec<_> = items.values().cloned().collect();
-        sorted.sort_by(|a, b| a.last_accessed_at.cmp(&b.last_accessed_at));
+        sorted.sort_by_key(|a| a.last_accessed_at);
         sorted.truncate(limit);
         sorted
     }

@@ -55,7 +55,7 @@ pub fn hrw_hash(key: &str, nodes: &[String]) -> Vec<String> {
         })
         .collect();
 
-    weights.sort_by(|a, b| b.1.cmp(&a.1));
+    weights.sort_by_key(|b| std::cmp::Reverse(b.1));
 
     weights.into_iter().map(|(node, _)| node).collect()
 }
