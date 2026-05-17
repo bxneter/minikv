@@ -1,9 +1,9 @@
 [package]
 name = "minikv"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 authors = ["Em' <whispem@users.noreply.github.com>"]
-description = "A production-grade distributed KV store with Raft consensus in ~1,500 lines"
+description = "Distributed key-value store with Raft consensus, encryption at rest, and pluggable storage backends."
 license = "MIT"
 repository = "https://github.com/whispem/minikv"
 keywords = ["distributed", "kv-store", "raft", "consensus", "storage"]
