@@ -1,5 +1,5 @@
 # Dockerfile for coordinator
-FROM rust:1.88-slim AS builder
+FROM rust:1.88.0-bookworm AS builder
 
 WORKDIR /app
 
@@ -23,7 +23,7 @@ COPY proto ./proto
 COPY src ./src
 
 # Build coordinator binary
-RUN cargo build --release --bin minikv-coord
+RUN rustc --version && cargo --version && cargo build --release --bin minikv-coord
 
 # Runtime stage
 FROM debian:bookworm-slim
