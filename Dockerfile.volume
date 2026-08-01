@@ -3,10 +3,16 @@ FROM rust:1.88.0-bookworm AS builder
 
 WORKDIR /app
 
+ENV ZSTD_SYS_USE_PKG_CONFIG=1
+
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     pkg-config \
+    cmake \
+    clang \
+    libclang-dev \
+    libzstd-dev \
     librocksdb-dev \
     protobuf-compiler \
     libssl-dev \
@@ -29,6 +35,8 @@ RUN rustc --version && cargo --version && cargo build --release --bin minikv-vol
 FROM debian:bookworm-slim
 
 WORKDIR /app
+
+ENV ZSTD_SYS_USE_PKG_CONFIG=1
 
 # Install runtime dependencies
 RUN apt-get update && apt-get install -y \
